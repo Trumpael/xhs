@@ -12,11 +12,11 @@ const database = new Databases(client)
 const avatars = new Avatars(client)
 
 // 登录部分API
-const createUser = async (email: string, name: string, user_id: string, avatar_url: string) => {
+const createUser = async (email: string, username: string, user_id: string, avatar_url: string) => {
     try {
         const user = await database.createDocument(databaseId, collectionIdUser, ID.unique(), {
             email,
-            name,
+            username,
             user_id,
             avatar_url
         })
@@ -57,12 +57,12 @@ export const logout = async () => {
     }
 }
 
-export const register = async (email: string, password: string, name: string) => {
+export const register = async (email: string, password: string, username: string) => {
     try {
         // 1. 注册
-        const user = await account.create(ID.unique(), email, password, name)
-        const avatarUrl = avatars.getInitials(name)
-        const res = await createUser(email, name, user.$id, avatarUrl.toString())
+        const user = await account.create(ID.unique(), email, password, username)
+        const avatarUrl = avatars.getInitials(username)
+        const res = await createUser(email, username, user.$id, avatarUrl.toString())
         // 2. 登录
         await login(email, password)
         return user.$id
@@ -78,7 +78,7 @@ export const getCurrentUser = async () => {
         const user = await getUserByUserId(res.$id)
         return {
             userId: res.$id,
-            name: user.name,
+            username: user.username,
             email: user.email,
             avatarUrl: user.avatar_url
         } as User
