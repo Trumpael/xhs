@@ -5,15 +5,15 @@ import { createContext, useContext, useEffect, useState } from "react"
 type GlobalContextType = {
     user: User
     setUser: (user:User) => void
-    refreshUser: () => void
-    refreshPosts: () => void,
+    refreshUser: () => void // 重新获取用户信息
+    refreshPosts: () => void,  // 重新获取帖子列表
     freshPostCnt: number
 }
 
 const GlobalContext = createContext<GlobalContextType>({
     user: {
         userId: '',
-        name: "",
+        username: "",
         email: "",
         avatarUrl: ""
     },
@@ -30,7 +30,7 @@ export const useGlobalContext = () => {
 export const GlobalContextProvider = ({children}: {children: React.ReactNode}) => {
     const [user, setUser] = useState<User>({
         userId: '',
-        name: "",
+        username: "",
         email: "",
         avatarUrl: ""
     })
@@ -48,7 +48,7 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
             console.log(error)
             setUser({
                 userId: '',
-                name: "",
+                username: "",
                 email: "",
                 avatarUrl: ""
             })

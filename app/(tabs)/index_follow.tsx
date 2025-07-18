@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-const MyComponent = () => {
+const Index_follow = () => {
   return (
     <View>
       <Text>Hello, RNFES!</Text>
@@ -8,6 +8,6 @@ const MyComponent = () => {
   );
 };
 
-export default MyComponent;
+export default Index_follow;
 
 const styles = StyleSheet.create({})
